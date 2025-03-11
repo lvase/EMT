@@ -1,19 +1,28 @@
 package mk.ukim.finki.emt.lab.web.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import mk.ukim.finki.emt.lab.exceptions.AuthorNotFoundException;
 import mk.ukim.finki.emt.lab.exceptions.BookNotFoundException;
 import mk.ukim.finki.emt.lab.models.Book;
 import mk.ukim.finki.emt.lab.models.dto.BookDto;
 import mk.ukim.finki.emt.lab.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Book", description = "book API")
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
+    @Autowired
     private final BookService bookService;
+
+
 
     public BookController(BookService bookService) {
         this.bookService = bookService;
@@ -63,10 +72,21 @@ public class BookController {
             return ResponseEntity.badRequest().build();
         }
     }
-
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Book>> getBooks() {
         List<Book> booksList = bookService.getAllBooks();
         return ResponseEntity.ok(booksList);
+    }
+
+    @PutMapping("/{id}/borrow/")
+    public ResponseEntity borrowBook(@PathVariable Long id) {
+
+        try {
+            bookService.borrowBook(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 }

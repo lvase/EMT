@@ -51,7 +51,7 @@ public class BookServiceImplementation implements BookService {
         Book bookToEdit = findById(id).get();
         bookToEdit.setName(name);
         bookToEdit.setCategory(category);
-        Author author = authorService.findById(id).get();
+        Author author = authorService.findById(authorId).get();
         bookToEdit.setAuthor(author);
         bookToEdit.setAvailableCopies(availableCopies);
         bookRepository.save(bookToEdit);

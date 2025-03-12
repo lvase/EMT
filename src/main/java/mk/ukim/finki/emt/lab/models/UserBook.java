@@ -8,20 +8,16 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Country {
-
-
+public class UserBook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String name;
-    String continent;
+    Long bookId;
+    String userName;
 
-    public Country(String name, String continent) {
-        this.name = name;
-        this.continent = continent;
+    public UserBook(Long bookId, String userName) {
+        this.bookId = bookId;
+        this.userName = userName;
     }
-
-    public Country() {
-    }
+   public UserBook() {}
 }

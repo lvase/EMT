@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import mk.ukim.finki.emt.lab.exceptions.AuthorNotFoundException;
 import mk.ukim.finki.emt.lab.exceptions.BookNotFoundException;
 import mk.ukim.finki.emt.lab.models.Book;
+import mk.ukim.finki.emt.lab.models.UserBook;
 import mk.ukim.finki.emt.lab.models.dto.BookDto;
 import mk.ukim.finki.emt.lab.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ import java.util.List;
 public class BookController {
     @Autowired
     private final BookService bookService;
-
 
 
     public BookController(BookService bookService) {
@@ -40,7 +40,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}/edit/")
-    public ResponseEntity editBook(@PathVariable Long id, @RequestBody BookDto book) {
+    public ResponseEntity<Book> editBook(@PathVariable Long id, @RequestBody BookDto book) {
 
         try {
 
@@ -52,7 +52,7 @@ public class BookController {
 
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Book> deleteBook(@PathVariable Long id) {
 
         try {
@@ -72,6 +72,7 @@ public class BookController {
             return ResponseEntity.badRequest().build();
         }
     }
+
     @GetMapping("/all")
     public ResponseEntity<List<Book>> getBooks() {
         List<Book> booksList = bookService.getAllBooks();
@@ -79,14 +80,21 @@ public class BookController {
     }
 
     @PutMapping("/{id}/borrow/")
-    public ResponseEntity borrowBook(@PathVariable Long id) {
-
+    public ResponseEntity<Book> borrowBook(@PathVariable Long id, @RequestParam String userName) {
         try {
-            bookService.borrowBook(id);
+            bookService.borrowBook(id, userName);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
+    }
 
+    @GetMapping("/userBooks/{id}")
+    public ResponseEntity<List<UserBook>> getUserBooksByBookId(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(bookService.getUserBooks(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

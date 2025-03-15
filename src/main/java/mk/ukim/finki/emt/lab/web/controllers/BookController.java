@@ -30,6 +30,7 @@ public class BookController {
     @PostMapping("/add")
     public ResponseEntity<Book> addBook(@RequestBody BookDto book) throws AuthorNotFoundException {
 
+
         try {
             Book createdBook = bookService.addNewBook(book.getName(), book.getCategory(), book.getAuthorId(), book.getAvailableCopies());
             return ResponseEntity.ok(createdBook);

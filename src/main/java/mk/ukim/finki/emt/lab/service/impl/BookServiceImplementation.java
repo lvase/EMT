@@ -5,7 +5,9 @@ import mk.ukim.finki.emt.lab.exceptions.BookNotFoundException;
 import mk.ukim.finki.emt.lab.models.Author;
 import mk.ukim.finki.emt.lab.models.Book;
 import mk.ukim.finki.emt.lab.models.Category;
+import mk.ukim.finki.emt.lab.models.UserBook;
 import mk.ukim.finki.emt.lab.repository.BookRepository;
+import mk.ukim.finki.emt.lab.repository.UserBookRepository;
 import mk.ukim.finki.emt.lab.service.AuthorService;
 import mk.ukim.finki.emt.lab.service.BookService;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,12 @@ import java.util.Optional;
 public class BookServiceImplementation implements BookService {
     private final BookRepository bookRepository;
     private final AuthorService authorService;
+    private final UserBookRepository userBookRepository;
 
-    public BookServiceImplementation(BookRepository bookRepository, AuthorService authorService) {
+    public BookServiceImplementation(BookRepository bookRepository, AuthorService authorService, UserBookRepository userBookRepository) {
         this.bookRepository = bookRepository;
         this.authorService = authorService;
+        this.userBookRepository = userBookRepository;
     }
 
     @Override
@@ -58,9 +62,16 @@ public class BookServiceImplementation implements BookService {
     }
 
     @Override
-    public void borrowBook(Long id) throws BookNotFoundException {
+    public void borrowBook(Long id, String username) throws BookNotFoundException {
         Book borrowedBook = findById(id).get();
         borrowedBook.setAvailableCopies(borrowedBook.getAvailableCopies() - 1);
         bookRepository.save(borrowedBook);
+        userBookRepository.save(new UserBook(id, username));
+    }
+
+    @Override
+    public List<UserBook> userBooks(Long id) {
+        List<UserBook> res = userBookRepository.findAllByBookId(id);
+        return res;
     }
 }

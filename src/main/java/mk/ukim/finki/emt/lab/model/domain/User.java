@@ -39,7 +39,7 @@ public class User implements UserDetails {
     // to-one -> FetchType.EAGER
     // to-many -> FetchType.LAZY
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Book> books;
+    private List<Wishlist> wishlists;
 
     public User() {
     }

@@ -16,10 +16,7 @@ public class Book {
     Category category;
     @ManyToOne
     Author author;
-    @ManyToOne
-    User user;
     Integer availableCopies;
-
 
     public Book(String name, Category category, Author author, Integer availableCopies) {
         this.name = name;

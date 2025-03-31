@@ -43,6 +43,7 @@ public class DataInitializer {
         bookService.save(new Book("Whispers of the Forest", Category.FANTASY, authorRepository.findAll().stream().findFirst().get(), 15));
         bookService.save(new Book("The Quantum Enigma", Category.BIOGRAPHY, authorRepository.findAll().stream().findFirst().get(), 10));
         bookService.save(new Book("The Art of Simplicity", Category.DRAMA, authorRepository.findAll().stream().findFirst().get(), 20));
+        bookService.save(new Book("The Hobbit", Category.FANTASY, authorRepository.findAll().stream().findFirst().get(), 0));
 
         userRepository.save(new User("damjan", passwordEncoder.encode("damjan"), "Damjan", "Sandev", Role.ROLE_ADMIN));
         userRepository.save(new User("vase", passwordEncoder.encode("vase"), "Vase", "Lazarev", Role.ROLE_USER));

@@ -13,12 +13,10 @@ import java.util.Optional;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final AuthorService authorService;
-    private final UserBookRepository userBookRepository;
 
-    public BookServiceImpl(BookRepository bookRepository, AuthorService authorService, UserBookRepository userBookRepository) {
+    public BookServiceImpl(BookRepository bookRepository, AuthorService authorService) {
         this.bookRepository = bookRepository;
         this.authorService = authorService;
-        this.userBookRepository = userBookRepository;
     }
 
     @Override

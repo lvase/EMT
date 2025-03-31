@@ -1,16 +1,11 @@
 package mk.ukim.finki.emt.lab.web.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import mk.ukim.finki.emt.lab.exceptions.AuthorNotFoundException;
-import mk.ukim.finki.emt.lab.exceptions.BookNotFoundException;
-import mk.ukim.finki.emt.lab.models.Book;
-import mk.ukim.finki.emt.lab.models.UserBook;
-import mk.ukim.finki.emt.lab.models.dto.BookDto;
-import mk.ukim.finki.emt.lab.service.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
+import mk.ukim.finki.emt.lab.dto.create.CreateBookDto;
+import mk.ukim.finki.emt.lab.dto.display.DisplayBookDto;
+import mk.ukim.finki.emt.lab.dto.update.UpdateBookDto;
+import mk.ukim.finki.emt.lab.service.application.BookApplicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,81 +15,50 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
-    private final BookService bookService;
+    private final BookApplicationService bookApplicationService;
 
 
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
+    public BookController(BookApplicationService bookApplicationService) {
+        this.bookApplicationService = bookApplicationService;
     }
 
+    @Operation(summary = "Add a new book", description = "Creates a new book based on the given BookDto.")
     @PostMapping("/add")
-    public ResponseEntity<Book> addBook(@RequestBody BookDto book) throws AuthorNotFoundException {
-
-
-        try {
-            Book createdBook = bookService.addNewBook(book.getName(), book.getCategory(), book.getAuthorId(), book.getAvailableCopies());
-            return ResponseEntity.ok(createdBook);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<DisplayBookDto> save(@RequestBody CreateBookDto createBookDto) {
+        return bookApplicationService.save(createBookDto).map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
+    @Operation(summary = "Update an existing book", description = "Updates a  book by Id using BookDto.")
     @PutMapping("/{id}/edit/")
-    public ResponseEntity<Book> editBook(@PathVariable Long id, @RequestBody BookDto book) {
+    public ResponseEntity<DisplayBookDto> update(@PathVariable Long id, @RequestBody UpdateBookDto updateBookDto) {
 
-        try {
-
-            bookService.editBook(id, book.getName(), book.getCategory(), book.getAuthorId(), book.getAvailableCopies());
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+        return bookApplicationService.update(id, updateBookDto)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
 
     }
 
+    @Operation(summary = "Delete a book", description = "Deletes a book by Id.")
     @DeleteMapping("/{id}/delete")
-    public ResponseEntity<Book> deleteBook(@PathVariable Long id) {
-
-        try {
-            Book deletedBook = bookService.deleteBook(id);
-            return ResponseEntity.ok(deletedBook);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable Long id) {
-        try {
-            Book book = bookService.findById(id).get();
-            return ResponseEntity.ok(book);
-        } catch (BookNotFoundException e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @GetMapping("/all")
-    public ResponseEntity<List<Book>> getBooks() {
-        List<Book> booksList = bookService.getAllBooks();
-        return ResponseEntity.ok(booksList);
-    }
-
-    @PutMapping("/{id}/borrow/")
-    public ResponseEntity<Book> borrowBook(@PathVariable Long id, @RequestParam String userName) {
-        try {
-            bookService.borrowBook(id, userName);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        if (bookApplicationService.findById(id).isPresent()) {
+            bookApplicationService.deleteById(id);
             return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
         }
+        return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/userBooks/{id}")
-    public ResponseEntity<List<UserBook>> getUserBooksByBookId(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(bookService.getUserBooks(id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+    @Operation(summary = "Get a book by Id", description = "Finds a book by Id. ")
+    @GetMapping("/{id}")
+    public ResponseEntity<DisplayBookDto> findById(@PathVariable Long id) {
+        return bookApplicationService.findById(id).map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @Operation(summary = "Get all books", description = "Retrieves a list of all books.")
+    @GetMapping
+    public ResponseEntity<List<DisplayBookDto>> findAll() {
+        return ResponseEntity.ok(bookApplicationService.findAll());
     }
 }

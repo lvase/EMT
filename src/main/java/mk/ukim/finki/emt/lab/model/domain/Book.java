@@ -1,7 +1,8 @@
-package mk.ukim.finki.emt.lab.models;
+package mk.ukim.finki.emt.lab.model.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import mk.ukim.finki.emt.lab.model.enumerations.Category;
 
 @Entity
 @Data
@@ -15,7 +16,10 @@ public class Book {
     Category category;
     @ManyToOne
     Author author;
+    @ManyToOne
+    User user;
     Integer availableCopies;
+
 
     public Book(String name, Category category, Author author, Integer availableCopies) {
         this.name = name;

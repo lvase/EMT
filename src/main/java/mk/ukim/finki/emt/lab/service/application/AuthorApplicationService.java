@@ -10,4 +10,6 @@ public interface AuthorApplicationService {
     Optional<DisplayAuthorDto> findById(Long id);
 
     List<DisplayAuthorDto> getAllAuthors();
+
+    Optional<DisplayAuthorDto> withMostRentedBooks();
 }

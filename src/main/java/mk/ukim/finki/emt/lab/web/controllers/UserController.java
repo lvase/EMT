@@ -55,8 +55,10 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<DisplayUserDto> login(HttpServletRequest request) {
         try {
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
             DisplayUserDto displayUserDto = userApplicationService.login(
-                    new LoginUserDto(request.getParameter("username"), request.getParameter("password"))
+                    new LoginUserDto(username, password)
             ).orElseThrow(InvalidUserCredentialsException::new);
 
             request.getSession().setAttribute("user", displayUserDto.toUser());

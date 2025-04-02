@@ -48,4 +48,9 @@ public class BookApplicationServiceImpl implements BookApplicationService {
         Optional<Author> author = authorService.findById(updateBookDto.author());
         return author.flatMap(value -> bookService.update(id, updateBookDto.toBook(value)).map(DisplayBookDto::from));
     }
+
+    @Override
+    public Optional<DisplayBookDto> mostRentedBook() {
+        return bookService.mostRentedBook().map(DisplayBookDto::from);
+    }
 }

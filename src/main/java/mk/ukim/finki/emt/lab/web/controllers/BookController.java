@@ -61,4 +61,12 @@ public class BookController {
     public ResponseEntity<List<DisplayBookDto>> findAll() {
         return ResponseEntity.ok(bookApplicationService.findAll());
     }
+
+    @Operation(summary = "Get most rented book", description = "Retrieves the book that is rented the most times")
+    @GetMapping("/mostRented")
+    public ResponseEntity<DisplayBookDto> getMostRented() {
+        return bookApplicationService.mostRentedBook().
+                map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }

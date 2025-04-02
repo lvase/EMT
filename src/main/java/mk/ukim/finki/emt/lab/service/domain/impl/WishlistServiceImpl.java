@@ -85,6 +85,7 @@ public class WishlistServiceImpl implements WishlistService {
             Wishlist wishlist = getActiveWishlist(username).get();
             wishlist.getBooks().forEach(book -> {
                         book.setAvailableCopies(book.getAvailableCopies() - 1);
+                        book.setTimesRented(book.getTimesRented() + 1);
                         bookService.update(book.getId(), book);
                     }
             );

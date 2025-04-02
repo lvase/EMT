@@ -11,4 +11,6 @@ public interface AuthorService {
     Optional<Author> findById(Long id);
 
     List<Author> getAllAuthors();
+
+    Optional<Author> withMostRentedBooks();
 }

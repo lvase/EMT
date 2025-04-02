@@ -16,4 +16,6 @@ public interface BookService {
 
     public Optional<Book> update(Long id, Book book);
 
+    Optional<Book> mostRentedBook();
+
 }

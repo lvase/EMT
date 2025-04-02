@@ -25,4 +25,9 @@ public class AuthorApplicationServiceImpl implements AuthorApplicationService {
     public List<DisplayAuthorDto> getAllAuthors() {
         return DisplayAuthorDto.from(authorService.getAllAuthors());
     }
+
+    @Override
+    public Optional<DisplayAuthorDto> withMostRentedBooks() {
+        return authorService.withMostRentedBooks().map(DisplayAuthorDto::from);
+    }
 }

@@ -6,6 +6,7 @@ import mk.ukim.finki.emt.lab.service.domain.AuthorService;
 import mk.ukim.finki.emt.lab.service.domain.BookService;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,5 +57,10 @@ public class BookServiceImpl implements BookService {
             }
             return bookRepository.save(existingBook);
         });
+    }
+
+    @Override
+    public Optional<Book> mostRentedBook() {
+        return Optional.of(this.getAllBooks().stream().max(Comparator.comparing(Book::getTimesRented)).get());
     }
 }

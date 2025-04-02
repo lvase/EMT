@@ -18,4 +18,6 @@ public interface BookApplicationService {
 
     public Optional<DisplayBookDto> update(Long id, UpdateBookDto updateBookDto);
 
+    Optional<DisplayBookDto> mostRentedBook();
+
 }

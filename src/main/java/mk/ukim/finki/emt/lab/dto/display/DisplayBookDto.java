@@ -12,7 +12,8 @@ public record DisplayBookDto(
         String name,
         Category category,
         Long author,
-        Integer availableCopies
+        Integer availableCopies,
+        Integer timesRented
 ) {
     public static DisplayBookDto from(Book book) {
         return new DisplayBookDto(
@@ -20,7 +21,8 @@ public record DisplayBookDto(
                 book.getName(),
                 book.getCategory(),
                 book.getAuthor().getId(),
-                book.getAvailableCopies()
+                book.getAvailableCopies(),
+                book.getTimesRented()
         );
     }
 

@@ -3,6 +3,8 @@ package mk.ukim.finki.emt.lab.model.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 public class Author {
@@ -14,6 +16,8 @@ public class Author {
     String surname;
     @ManyToOne
     Country country;
+    @OneToMany(mappedBy = "author")
+    List<Book> books;
 
     public Author() {
     }

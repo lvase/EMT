@@ -17,12 +17,14 @@ public class Book {
     @ManyToOne
     Author author;
     Integer availableCopies;
+    Integer timesRented;
 
     public Book(String name, Category category, Author author, Integer availableCopies) {
         this.name = name;
         this.category = category;
         this.author = author;
         this.availableCopies = availableCopies;
+        this.timesRented = 0;
     }
 
     public Book() {

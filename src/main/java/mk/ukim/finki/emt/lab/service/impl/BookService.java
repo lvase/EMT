@@ -1,11 +1,10 @@
-package mk.ukim.finki.emt.lab.service;
+package mk.ukim.finki.emt.lab.service.impl;
 
 import mk.ukim.finki.emt.lab.exceptions.AuthorNotFoundException;
 import mk.ukim.finki.emt.lab.exceptions.BookNotFoundException;
-import mk.ukim.finki.emt.lab.models.Author;
-import mk.ukim.finki.emt.lab.models.Book;
-import mk.ukim.finki.emt.lab.models.Category;
-import mk.ukim.finki.emt.lab.models.UserBook;
+import mk.ukim.finki.emt.lab.models.domain.Book;
+import mk.ukim.finki.emt.lab.models.enumerations.Category;
+import mk.ukim.finki.emt.lab.models.domain.UserBook;
 
 import java.util.List;
 import java.util.Optional;

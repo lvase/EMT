@@ -1,10 +1,9 @@
-package mk.ukim.finki.emt.lab.models;
+package mk.ukim.finki.emt.lab.models.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data;
 
 @Entity
 
@@ -21,6 +20,11 @@ public class Country {
         this.name = name;
         this.continent = continent;
     }
+
+    public Long getId() {
+        return id;
+    }
+
 
     public String getName() {
         return name;
@@ -40,4 +44,6 @@ public class Country {
 
     public Country() {
     }
+
+
 }

@@ -1,7 +1,7 @@
-package mk.ukim.finki.emt.lab.models;
+package mk.ukim.finki.emt.lab.models.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import mk.ukim.finki.emt.lab.models.enumerations.Category;
 
 @Entity
 public class Book {

@@ -1,15 +1,15 @@
-package mk.ukim.finki.emt.lab.service.impl;
+package mk.ukim.finki.emt.lab.service.impl.impl;
 
 import mk.ukim.finki.emt.lab.exceptions.AuthorNotFoundException;
 import mk.ukim.finki.emt.lab.exceptions.BookNotFoundException;
-import mk.ukim.finki.emt.lab.models.Author;
-import mk.ukim.finki.emt.lab.models.Book;
-import mk.ukim.finki.emt.lab.models.Category;
-import mk.ukim.finki.emt.lab.models.UserBook;
+import mk.ukim.finki.emt.lab.models.domain.Author;
+import mk.ukim.finki.emt.lab.models.domain.Book;
+import mk.ukim.finki.emt.lab.models.enumerations.Category;
+import mk.ukim.finki.emt.lab.models.domain.UserBook;
 import mk.ukim.finki.emt.lab.repository.BookRepository;
 import mk.ukim.finki.emt.lab.repository.UserBookRepository;
-import mk.ukim.finki.emt.lab.service.AuthorService;
-import mk.ukim.finki.emt.lab.service.BookService;
+import mk.ukim.finki.emt.lab.service.impl.AuthorService;
+import mk.ukim.finki.emt.lab.service.impl.BookService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

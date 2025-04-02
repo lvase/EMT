@@ -1,7 +1,7 @@
-package mk.ukim.finki.emt.lab.models.dto;
+package mk.ukim.finki.emt.lab.dto;
 
 import lombok.Data;
-import mk.ukim.finki.emt.lab.models.Category;
+import mk.ukim.finki.emt.lab.models.enumerations.Category;
 
 @Data
 public class BookDto {

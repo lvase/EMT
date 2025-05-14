@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import mk.ukim.finki.emt.lab.dto.create.CreateBookDto;
 import mk.ukim.finki.emt.lab.dto.display.DisplayBookDto;
 import mk.ukim.finki.emt.lab.dto.update.UpdateBookDto;
+import mk.ukim.finki.emt.lab.model.views.BooksPerAuthorView;
+import mk.ukim.finki.emt.lab.repository.BooksPerAuthorViewRepository;
 import mk.ukim.finki.emt.lab.service.application.BookApplicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +18,12 @@ import java.util.List;
 @RequestMapping("/api/books")
 public class BookController {
     private final BookApplicationService bookApplicationService;
+    private final BooksPerAuthorViewRepository booksPerAuthorViewRepository;
 
 
-    public BookController(BookApplicationService bookApplicationService) {
+    public BookController(BookApplicationService bookApplicationService, BooksPerAuthorViewRepository booksPerAuthorViewRepository) {
         this.bookApplicationService = bookApplicationService;
+        this.booksPerAuthorViewRepository = booksPerAuthorViewRepository;
     }
 
     @Operation(summary = "Add a new book", description = "Creates a new book based on the given BookDto.")
@@ -69,4 +73,10 @@ public class BookController {
                 map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    @Operation(summary = "Get number of books per author",description = "Retrieves a list of number of books grouped by author")
+    @GetMapping("/by-author")
+    public ResponseEntity<List<BooksPerAuthorView>> getBooksPerAuthor() {
+        return ResponseEntity.ok(booksPerAuthorViewRepository.findAll());
+    }
+
 }

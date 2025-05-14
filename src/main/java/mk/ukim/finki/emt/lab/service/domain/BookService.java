@@ -18,4 +18,6 @@ public interface BookService {
 
     Optional<Book> mostRentedBook();
 
+    void refreshMaterializedView();
+
 }

@@ -14,6 +14,6 @@ public record DisplayUserDto(String username, String name, String surname, Role 
     }
 
     public User toUser() {
-        return new User(username, name, surname, role.name());
+        return new User(username, name, surname, role);
     }
 }

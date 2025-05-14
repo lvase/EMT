@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 import mk.ukim.finki.emt.lab.dto.LoginUserDto;
 import mk.ukim.finki.emt.lab.dto.create.CreateUserDto;
 import mk.ukim.finki.emt.lab.dto.display.DisplayUserDto;
@@ -14,8 +13,6 @@ import mk.ukim.finki.emt.lab.model.exceptions.PasswordsDoNotMatchException;
 import mk.ukim.finki.emt.lab.service.application.UserApplicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")

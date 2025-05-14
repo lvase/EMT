@@ -2,6 +2,7 @@ package mk.ukim.finki.emt.lab.service.domain;
 
 import mk.ukim.finki.emt.lab.model.exceptions.AuthorNotFoundException;
 import mk.ukim.finki.emt.lab.model.domain.Author;
+import mk.ukim.finki.emt.lab.model.projections.AuthorProjection;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,4 +14,12 @@ public interface AuthorService {
     List<Author> getAllAuthors();
 
     Optional<Author> withMostRentedBooks();
+
+    Optional<Author> save(Author author);
+
+    void refreshMaterializedView();
+
+    Optional<List<AuthorProjection>> getAuthorsNames();
+
 }
+

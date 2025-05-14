@@ -52,12 +52,11 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    public User(String username, String password, String name, String surname) {
+    public User(String username, String name, String surname, Role role) {
         this.username = username;
-        this.password = password;
         this.name = name;
         this.surname = surname;
-        this.role = Role.ROLE_USER;
+        this.role = role;
     }
 
     public User(UserDetails userDetails) {

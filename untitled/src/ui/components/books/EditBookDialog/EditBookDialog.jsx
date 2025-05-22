@@ -18,7 +18,7 @@ const EditBookDialog = ({ open, onClose, book, onEdit }) => {
     const [formData, setFormData] = useState({
         name: '', category: '', authorId: '', availableCopies: ''
     });
-    const authors = useAuthors();
+    const authors =[{id:1,name:"John Lennon"}];
 
     useEffect(() => {
         if (book) {

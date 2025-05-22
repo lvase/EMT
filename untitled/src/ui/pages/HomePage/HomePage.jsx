@@ -1,5 +1,6 @@
 import React from 'react';
 import {Box, Container, Typography} from "@mui/material";
+import AuthorsPerCountryChart from "../../components/authors/AuthorsPerCountryChart.jsx";
 
 const HomePage = () => {
     return (
@@ -12,6 +13,7 @@ const HomePage = () => {
                     This is the home page.
                 </Typography>
             </Container>
+            <AuthorsPerCountryChart></AuthorsPerCountryChart>
         </Box>
     );
 };

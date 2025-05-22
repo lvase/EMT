@@ -12,7 +12,7 @@ import {
     TextField
 } from '@mui/material';
 //import useAuthors from '../../hooks/useAuthors';
-const categories = [ /* 'NOVEL', 'THRILLER', 'HISTORY', ... */ ];
+const categories = [  'NOVEL', 'THRILLER', 'HISTORY' ];
 
 const AddBookDialog = ({ open, onClose, onAdd }) => {
     const [formData, setFormData] = useState({
@@ -21,7 +21,7 @@ const AddBookDialog = ({ open, onClose, onAdd }) => {
         authorId: '',
         availableCopies: ''
     });
-    const authors = useAuthors();
+    const authors =[{id:1,name:"John Lennon"}];
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,6 +29,7 @@ const AddBookDialog = ({ open, onClose, onAdd }) => {
     };
 
     const handleSubmit = () => {
+        debugger
         onAdd(formData);
         setFormData({ name: '', category: '', authorId: '', availableCopies: '' });
         onClose();

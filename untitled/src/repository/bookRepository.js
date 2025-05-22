@@ -22,6 +22,7 @@ const bookRepository={
         return await axiosInstance.put(`/${controller}/${id}/edit`,data)
     },
     add:async (data)=>{
+        debugger
         return await axiosInstance.post(`/${controller}/add`,data)
     }
 }
